@@ -1,0 +1,4 @@
+@import 'tailwindcss' important;
+#root {
+  font-family: 'Montserrat', sans-serif;
+}
