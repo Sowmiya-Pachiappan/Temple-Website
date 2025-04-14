@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 
 const AuthLayout = () => {
   return (
-    <Container className='p-10 m-0 min-h-screen h-screen w-full max-w-full '>
+    <Container className='p-0 m-0 min-h-screen h-screen w-full max-w-full '>
       <Outlet />
     </Container>
   );

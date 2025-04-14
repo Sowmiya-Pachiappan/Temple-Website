@@ -5,8 +5,11 @@ import FeatureImage3 from '@/assets/images/feature-3.png';
 
 const Feature = () => {
   return (
-    <div className='flex justify-center w-full py-10'>
-      <div className='text-white  w-3/4 rounded-2xl bg-linear-to-r from-green-400 to-green-500 p-10 shadow-xl'>
+    <div
+      className='flex justify-center w-full py-10'
+      id='feature'
+    >
+      <div className='text-white  w-3/4 rounded-2xl bg-linear-to-r from-brand-400 to-brand-500 p-10 shadow-xl'>
         <Stack
           direction='row'
           justifyContent={'space-between'}

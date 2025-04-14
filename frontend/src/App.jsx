@@ -14,7 +14,7 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: '#37bd68',
+        main: '#F97F54',
       },
     },
     typography: {

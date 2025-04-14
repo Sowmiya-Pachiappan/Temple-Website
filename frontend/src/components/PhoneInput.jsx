@@ -44,6 +44,7 @@ export const MuiPhone = ({
       onChange={handlePhoneValueChange}
       type='tel'
       inputRef={inputRef}
+      className='w-full'
       InputProps={{
         startAdornment: (
           <InputAdornment

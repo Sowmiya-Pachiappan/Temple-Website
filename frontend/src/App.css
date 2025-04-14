@@ -2,3 +2,16 @@
 #root {
   font-family: 'Montserrat', sans-serif;
 }
+@theme {
+  --color-brand-50: #fef4f0;
+  --color-brand-100: #fee5dd;
+  --color-brand-200: #fdccba;
+  --color-brand-300: #fbb298;
+  --color-brand-400: #fa9975;
+  --color-brand-500: #f97f54;
+  --color-brand-600: #f74f13;
+  --color-brand-700: #c03807;
+  --color-brand-800: #802505;
+  --color-brand-900: #401302;
+  --color-brand-950: #220a01;
+}

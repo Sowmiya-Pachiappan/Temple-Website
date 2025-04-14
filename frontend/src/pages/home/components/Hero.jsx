@@ -13,7 +13,7 @@ const Hero = () => {
   return (
     <Container
       maxWidth={'xl'}
-      className='h-full w-full flex items-center gap-10 rounded-2xl  bg-green-50 p-10 relative  bg-[url(@/assets/images/world_map.svg)]'
+      className='h-full w-full flex items-center gap-10 rounded-2xl  bg-brand-50 p-10 relative  bg-[url(@/assets/images/world_map.svg)]'
     >
       <Box className='flex-1/2 flex flex-col gap-3'>
         <Typography
@@ -21,7 +21,7 @@ const Hero = () => {
           className='leading-18 font-semibold'
         >
           Discover & Connect with{' '}
-          <span className='text-green-500'>Temples</span>{' '}
+          <span className='text-brand-500'>Temples</span>{' '}
           Worldwide
         </Typography>
         <Typography variant='h6' className='leading-10'>
@@ -29,7 +29,7 @@ const Hero = () => {
           and connect with devotees from around the globe.
         </Typography>
         <div>
-          <Button className='text-white bg-green-500 rounded-xl px-5 py-3'>
+          <Button className='text-white bg-brand-500 rounded-xl px-5 py-3'>
             Explore more
           </Button>
         </div>
