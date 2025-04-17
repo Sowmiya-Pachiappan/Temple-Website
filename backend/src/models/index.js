@@ -1,6 +1,7 @@
 import User from './userModel.js';
 import Temple from './templeModel.js';
 import UserTemple from './userTempleModel.js';
+import Event from './eventModel.js';
 
 // Association for Users connected to many Temples and vice versa
 User.belongsToMany(Temple, {
@@ -38,5 +39,13 @@ User.hasMany(User, {
   as: 'Referrals',
   foreignKey: 'memberReference',
 });
+
+//Association for Event belongs to a Temple
+Event.belongsTo(Temple, { foreignKey: 'templeId' });
+Temple.hasMany(Event, { foreignKey: 'templeId' });
+
+// Association for Event created by a User
+Event.belongsTo(User, { foreignKey: 'createdBy' });
+User.hasMany(Event, { foreignKey: 'createdBy' });
 
 export { User, Temple };

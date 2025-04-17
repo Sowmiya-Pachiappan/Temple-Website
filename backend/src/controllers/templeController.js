@@ -169,6 +169,8 @@ export const deleteTemple = asyncHandler(
 export const verifyTemple = asyncHandler(
   async (req, res) => {
     try {
+      console.log(req.user);
+
       const temple = await Temple.findByPk(req.params.id);
 
       if (!temple) {
@@ -178,6 +180,7 @@ export const verifyTemple = asyncHandler(
       }
 
       temple.isVerified = true;
+
       await temple.save();
 
       if (temple.email) {

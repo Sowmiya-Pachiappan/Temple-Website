@@ -1,31 +1,50 @@
-export const connectUserToTemple = async (req, res) => {
+import asyncHandler from 'express-async-handler';
+import User from '../models/userModel.js';
+
+export const connectUserToTemple = asyncHandler(
+  async (req, res) => {
+    try {
+      const { templeId } = req.params;
+      const userId = req.user.id;
+
+      const temple = await User.findByPk(templeId);
+      if (!temple) {
+        return res
+          .status(404)
+          .send({ message: 'User not found' });
+      }
+
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res
+          .status(404)
+          .send({ message: 'User not found' });
+      }
+
+      await temple.addUser(user);
+
+      res.send({
+        message: 'User connected to temple successfully',
+      });
+    } catch (error) {
+      console.error('Connection error:', error);
+      res
+        .status(500)
+        .send({ message: 'Internal server error' });
+    }
+  }
+);
+
+export const getUsers = asyncHandler(async (req, res) => {
   try {
-    const { id: templeId } = req.params;
-    const userId = req.user.id;
-
-    const temple = await Temple.findByPk(templeId);
-    if (!temple) {
-      return res
-        .status(404)
-        .send({ message: 'Temple not found' });
-    }
-
-    const user = await User.findByPk(userId);
-    if (!user) {
-      return res
-        .status(404)
-        .send({ message: 'User not found' });
-    }
-
-    await temple.addUse(user);
-
-    res.send({
-      message: 'User connected to temple successfully',
+    const users = await User.findAll({
+      order: [['createdAt', 'DESC']],
     });
+    res.send({ users });
   } catch (error) {
-    console.error('Connection error:', error);
+    console.log(error);
     res
       .status(500)
-      .send({ message: 'Internal server error' });
+      .send({ message: 'Failed to fetch users' });
   }
-};
+});

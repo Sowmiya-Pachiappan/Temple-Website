@@ -11,26 +11,22 @@ import {
   authenticate,
   authorizeAdmin,
 } from '../middlewares/authMiddleware.js';
-import { connectUserToTemple } from '../controllers/userController.js';
 
 const templeRouter = express.Router();
 
-templeRouter.route('/').post(createTemple).get(getTemples);
+templeRouter
+  .route('/')
+  .post(authenticate, createTemple)
+  .get(getTemples);
 
 templeRouter
   .route('/:id')
   .get(getTempleById)
   .put(authenticate, updateTemple)
-  .delete(authorizeAdmin, deleteTemple);
+  .delete(authenticate, authorizeAdmin, deleteTemple);
 
 templeRouter
-  .route('/:id/verify')
-  .put(authorizeAdmin, verifyTemple);
-
-templeRouter.route(
-  '/:id/connect',
-  authenticate,
-  connectUserToTemple
-);
+  .route('/verify/:id')
+  .put(authenticate, authorizeAdmin, verifyTemple);
 
 export default templeRouter;

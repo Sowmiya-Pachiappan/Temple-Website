@@ -40,6 +40,7 @@ export const register = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (err) {
@@ -68,14 +69,22 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET,
-      {
-        expiresIn: '1d',
-      }
+      { expiresIn: '1d' }
     );
 
-    const { password: _, ...userData } = user.dataValues;
-    res.send({ token, userDetails: userData });
+    res.send({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({
+      message: error.message,
+    });
   }
 };

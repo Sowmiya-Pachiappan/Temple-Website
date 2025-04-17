@@ -1,12 +1,19 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const authenticate = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
 
-  if (!token)
+  if (!token) {
+    console.log('Token not found in header');
     return res
       .status(403)
       .json({ message: 'No token provided' });
+  }
+
+  console.log('Token:', token);
+  console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
   try {
     const decoded = jwt.verify(
@@ -16,7 +23,7 @@ export const authenticate = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: error.message });
   }
 };
 
