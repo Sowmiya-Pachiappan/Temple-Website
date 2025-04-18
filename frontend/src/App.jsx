@@ -23,6 +23,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import Temples from './pages/admin/temple/Temples';
 import Events from './pages/admin/events/Events';
 import Users from './pages/admin/user/Users';
+import HomePageContent from './pages/admin/homePageContent/HomePageContent';
 
 function App() {
   const theme = createTheme({
@@ -69,6 +70,10 @@ function App() {
             <Route
               path={'events'}
               element={<Events />}
+            ></Route>
+            <Route
+              path={'homePageContent'}
+              element={<HomePageContent />}
             ></Route>
           </Route>
         </Route>

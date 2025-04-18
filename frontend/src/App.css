@@ -1,4 +1,5 @@
 @import 'tailwindcss' important;
+
 #root {
   font-family: 'Montserrat', sans-serif;
 }
@@ -14,4 +15,14 @@
   --color-brand-800: #802505;
   --color-brand-900: #401302;
   --color-brand-950: #220a01;
+}
+i[class^='fi-']:before,
+i[class*=' fi-']:before,
+span[class^='fi-']:before,
+span[class*='fi-']:before {
+  line-height: 0 !important;
+}
+i[class^='fi fi-'] {
+  line-height: 0 !important;
+  vertical-align: middle !important;
 }

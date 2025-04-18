@@ -12,6 +12,7 @@ import {
   People,
   Logout,
   TempleHindu,
+  DisplaySettings,
 } from '@mui/icons-material';
 import { NavLink, Outlet, useNavigate } from 'react-router';
 import Logo from '@/assets/images/logo.png';
@@ -41,6 +42,11 @@ const AdminLayout = () => {
       text: 'Users',
       icon: <People />,
       path: '/admin/users',
+    },
+    {
+      text: 'Home Page Content',
+      icon: <DisplaySettings />,
+      path: '/admin/homePageContent',
     },
     { text: 'Logout', icon: <Logout /> },
   ];
