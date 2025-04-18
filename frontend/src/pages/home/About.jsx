@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Stack } from '@mui/material';
 import { motion } from 'motion/react';
-import Image from '@/assets/images/temple-6.jpg';
+import Image from '@/assets/images/temple-8.jpg';
 
 const About = () => {
   const [showFull, setShowFull] = useState(false);
@@ -31,7 +31,7 @@ const About = () => {
   return (
     <motion.div
       id='about'
-      className='flex flex-col md:flex-row items-center justify-center p-6 md:p-12 gap-6 bg-white'
+      className='flex flex-col md:flex-row items-center justify-center py-10 gap-6 bg-white'
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -48,7 +48,7 @@ const About = () => {
         <img
           src={Image}
           alt='Kula Devata'
-          className='rounded-2xl shadow-lg w-5/6 object-cover'
+          className='rounded-md shadow-lg w-full object-cover'
         />
       </motion.div>
 

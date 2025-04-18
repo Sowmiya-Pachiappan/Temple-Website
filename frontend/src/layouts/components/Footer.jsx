@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Box
       component={'footer'}
-      className='bg-gray-950 shadow-none px-10 py-5'
+      className='bg-gray-950 shadow-none p-10'
     >
       <Stack direction={'row'} gap={4}>
         <Box className='flex-1 flex flex-col gap-5'>
@@ -73,9 +73,9 @@ const Footer = () => {
             gap={4}
             direction={'row'}
           >
-            <i class='fi fi-brands-facebook text-2xl cursor-pointer hover:text-white'></i>
-            <i class='fi fi-brands-instagram text-2xl cursor-pointer hover:text-white'></i>
-            <i class='fi fi-brands-youtube text-2xl cursor-pointer hover:text-white'></i>
+            <i className='fi fi-brands-facebook text-2xl cursor-pointer hover:text-white'></i>
+            <i className='fi fi-brands-instagram text-2xl cursor-pointer hover:text-white'></i>
+            <i className='fi fi-brands-youtube text-2xl cursor-pointer hover:text-white'></i>
           </Stack>
           <Typography
             variant='h4'

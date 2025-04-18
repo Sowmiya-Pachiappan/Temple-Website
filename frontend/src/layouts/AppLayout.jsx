@@ -7,7 +7,7 @@ const AppLayout = () => {
   return (
     <>
       <Header />
-      <Container className='p-10 m-0 w-full max-w-full '>
+      <Container className='m-0 w-full max-w-full '>
         <Outlet />
       </Container>
       <Footer />
