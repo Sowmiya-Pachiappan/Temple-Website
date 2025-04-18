@@ -38,8 +38,13 @@ const Hero = () => {
           matter.
         </Typography>
         <div className='flex gap-10'>
-          <Button className='text-white bg-brand-500 rounded-sm px-5 py-3'>
-            Explore more
+          <Button className='relative group overflow-hidden bg-brand-500 px-5 py-3 text-white'>
+            <span className='relative z-10 text-lg'>
+              Explore More
+            </span>
+
+            {/* Expanding background hover effect */}
+            <span className='absolute left-0 top-0 h-full w-0 bg-brand-600 z-0 group-hover:w-full transition-all duration-500'></span>
           </Button>
         </div>
       </Box>
