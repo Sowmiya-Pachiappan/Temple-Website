@@ -1,17 +1,11 @@
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Temple1 from '@/assets/images/temple-1.jpg';
 import Temple2 from '@/assets/images/hero.jpg';
 import Temple3 from '@/assets/images/temple-9.jpg';
 
 const Hero = () => {
   return (
-    <Container
-      maxWidth={'xl'}
+    <div
       className={`rounded-md  relative flex bg-cover h-[calc(100vh-104px)] bg-center bg-[url(@/assets/images/temple-2.jpeg)] `}
     >
       <div className='absolute rounded-md inset-0 bg-gradient-to-r from-black  to-black opacity-75'></div>
@@ -39,7 +33,7 @@ const Hero = () => {
         </Typography>
         <div className='flex gap-10'>
           <Button className='relative group overflow-hidden bg-brand-500 px-5 py-3 text-white'>
-            <span className='relative z-10 text-lg'>
+            <span className='relative z-10'>
               Explore More
             </span>
 
@@ -105,7 +99,7 @@ const Hero = () => {
           />
         </div>
       </Box> */}
-    </Container>
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ const Feature = () => {
       className='flex justify-center w-full py-10 z-10'
       id='feature'
     >
-      <div className='text-white  w-5/6 rounded-2xl bg-linear-to-r from-brand-400 to-brand-500 p-10 shadow-xl'>
+      <div className='text-white  w-5/6 rounded-md bg-linear-to-r from-brand-400 to-brand-500 p-10 shadow-xl'>
         <Stack
           direction='row'
           justifyContent={'space-between'}

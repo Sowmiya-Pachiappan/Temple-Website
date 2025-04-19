@@ -31,7 +31,7 @@ const About = () => {
   return (
     <motion.div
       id='about'
-      className='flex flex-col md:flex-row items-center justify-center py-10 gap-6 bg-white'
+      className='px-10 flex flex-col md:flex-row items-center justify-center py-10 gap-6 bg-white'
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}

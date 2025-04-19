@@ -1,34 +1,8 @@
-import { useState } from 'react';
+import ImageSwiper from '@/components/ImageSwiper';
+import { Button, Stack } from '@mui/material';
 import { motion } from 'motion/react';
-import {
-  Box,
-  Button,
-  MenuItem,
-  TextField,
-} from '@mui/material';
-import Temple from '@/assets/images/temple-5.jpeg';
 
 const Outreach = () => {
-  const temples = [
-    {
-      label: 'Sri Venkateswara Temple',
-      value: 'venkateswara',
-    },
-    { label: 'Meenakshi Amman Temple', value: 'meenakshi' },
-    { label: 'Kashi Vishwanath Temple', value: 'kashi' },
-    // Add more temples as needed
-  ];
-
-  const [selectedTemple, setSelectedTemple] = useState('');
-  const [eventName, setEventName] = useState('');
-  const [date, setDate] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ selectedTemple, eventName, date });
-    // Add your submission logic here
-  };
-
   return (
     <motion.div
       id='outreach'
@@ -36,62 +10,72 @@ const Outreach = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
+      className='px-10 flex flex-col  items-center justify-center py-10 gap-6 bg-white'
     >
-      <Box>
-        <img src={Temple} alt='Kula Devata' />
-        <Box className='bg-brand-500 p-10 '>
-          <form
-            onSubmit={handleSubmit}
-            className='flex flex-col gap-4'
+      <motion.div
+        className='w-full md:w-2/3 text-gray-800 text-center'
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        <Stack gap={1}>
+          <Stack
+            direction={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            gap={2}
           >
-            <TextField
-              size='small'
-              select
-              label='Select Temple'
-              value={selectedTemple}
-              onChange={(e) =>
-                setSelectedTemple(e.target.value)
-              }
-              fullWidth
-            >
-              {temples.map((temple) => (
-                <MenuItem
-                  key={temple.value}
-                  value={temple.value}
-                >
-                  {temple.label}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <TextField
-              size='small'
-              label='Event Name'
-              value={eventName}
-              onChange={(e) => setEventName(e.target.value)}
-              fullWidth
-            />
-
-            <TextField
-              size='small'
-              label='Date'
-              type='date'
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              fullWidth
-            />
-
+            <Stack gap={0.5} alignItems={'flex-end'}>
+              <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
+              <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
+            </Stack>
+            <h6 className='text-brand-500 font-bold '>
+              OUTREACH
+            </h6>
+            <Stack gap={0.5} alignItems={'center'}>
+              <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
+              <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
+            </Stack>
+          </Stack>
+          <h3 className='font-semibold text-2xl'>
+            Extending Divine Connections Across Borders
+          </h3>
+          <p className='text-base leading-relaxed'>
+            Our outreach initiatives are dedicated to
+            spreading spiritual wisdom, cultural heritage,
+            and compassionate service beyond temple walls.
+            Through community events, charity drives, and
+            global connections, we bring people together to
+            celebrate shared values and enrich lives. Join
+            us in creating a more united, spiritually aware
+            world.
+          </p>
+          <div>
             <Button
-              type='submit'
               variant='contained'
-              className='bg-brand-500 text-white hover:bg-brand-600'
+              className='mt-4 bg-brand-500 text-white px-6 py-2 rounded-md hover:bg-brand-600 transition-colors duration-300 shadow-md'
             >
-              Submit
+              Post Your Fest
             </Button>
-          </form>
-        </Box>
-      </Box>
+          </div>
+        </Stack>
+      </motion.div>
+
+      <motion.div
+        className='w-full'
+        initial={{ x: -50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        {/* <img
+                src={Image}
+                alt='Kula Devata'
+                className='rounded-md shadow-lg w-full object-cover'
+              /> */}
+        <ImageSwiper />
+      </motion.div>
     </motion.div>
   );
 };
