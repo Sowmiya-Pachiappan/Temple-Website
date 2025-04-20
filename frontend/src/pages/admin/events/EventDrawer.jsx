@@ -2,11 +2,10 @@ import {
   Box,
   Drawer,
   Typography,
-  IconButton,
   Grid,
   Divider,
   Stack,
-  Button,
+  IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 const EventDrawer = ({ open, onClose, event }) => {
@@ -39,12 +38,13 @@ const EventDrawer = ({ open, onClose, event }) => {
         {event ? (
           <Stack spacing={2}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item size={12}>
                 <Typography
-                  variant='h6'
-                  sx={{ fontWeight: 'bold' }}
+                  variant='body1'
+                  color='textSecondary'
                 >
-                  {event?.mandirName}
+                  <strong>Temple:</strong>{' '}
+                  {event?.Temple?.mandirName}
                 </Typography>
               </Grid>
               <Grid item size={12}>
@@ -52,81 +52,20 @@ const EventDrawer = ({ open, onClose, event }) => {
                   variant='body1'
                   color='textSecondary'
                 >
-                  <strong>Diety:</strong> {event?.dietyName}
+                  <strong>Event Date:</strong>{' '}
+                  {event?.eventDate}
                 </Typography>
               </Grid>
-              <Grid item size={12}>
-                <Typography
-                  variant='body2'
-                  color='textSecondary'
-                  sx={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
-                  <strong>Description:</strong>{' '}
-                  {event?.description ||
-                    'No description available.'}
-                </Typography>
-              </Grid>
+
               <Grid item size={12}>
                 <Typography
                   variant='body1'
                   color='textSecondary'
                 >
-                  <strong>Address:</strong>{' '}
-                  {event?.address ||
-                    'No address available.'}
+                  <strong>Created By:</strong>{' '}
+                  {event?.User?.name} {event?.phoneNumber}
                 </Typography>
               </Grid>
-              <Grid item size={12}>
-                <Typography
-                  variant='body1'
-                  color='textSecondary'
-                >
-                  <strong>State:</strong> {event?.state}
-                </Typography>
-              </Grid>
-              <Grid item size={12}>
-                <Typography
-                  variant='body1'
-                  color='textSecondary'
-                >
-                  <strong>District:</strong>{' '}
-                  {event?.district}
-                </Typography>
-              </Grid>
-              <Grid item size={12}>
-                <Typography
-                  variant='body1'
-                  color='textSecondary'
-                >
-                  <strong>Pincode:</strong> {event?.pincode}
-                </Typography>
-              </Grid>
-              <Grid item size={12}>
-                <Typography
-                  variant='body1'
-                  color='textSecondary'
-                >
-                  <strong>Phone:</strong> {event?.phoneCode}{' '}
-                  {event?.phoneNumber}
-                </Typography>
-              </Grid>
-              {event?.mapLink && (
-                <Grid item size={12}>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    href={event?.mapLink}
-                    target='_blank'
-                    sx={{ width: '100%' }}
-                  >
-                    View on Map
-                  </Button>
-                </Grid>
-              )}
             </Grid>
           </Stack>
         ) : (

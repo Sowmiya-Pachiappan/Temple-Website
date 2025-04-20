@@ -6,12 +6,7 @@ export const getTempleById = (id) =>
   axios.get(`/temples/${id}`);
 
 export const createTemple = async (templeData) => {
-  const token = await localStorage.getItem('token');
-  return axios.post('/temples', templeData, {
-    headers: {
-      Authorization: `Bearer ${token} `,
-    },
-  });
+  return axios.post('/temples', templeData);
 };
 
 export const updateTemple = async (id, updatedData) => {

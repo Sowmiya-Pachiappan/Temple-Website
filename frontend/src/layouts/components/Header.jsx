@@ -1,8 +1,17 @@
-import { AppBar, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { Link as ScrollLink, scroller } from 'react-scroll';
 import Logo from '@/assets/images/logo.png';
 import { useState, useEffect, useCallback } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import {
+  NavLink,
+  useLocation,
+  useNavigate,
+} from 'react-router';
 
 const Header = () => {
   const location = useLocation();
@@ -11,6 +20,8 @@ const Header = () => {
   );
 
   const sections = ['home', 'about', 'outreach', 'contact'];
+  const isLoggedIn = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   // Debounced scroll handler
   const handleScroll = useCallback(() => {
@@ -33,7 +44,11 @@ const Header = () => {
       }
     }
   }, [activeSection]);
-
+  const logoutHandler = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+  };
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () =>
@@ -115,20 +130,38 @@ const Header = () => {
               </div>
             </ScrollLink>
           ))}
-
-          <NavLink
-            to={'/login'}
-            className='text-brand-500 cursor-pointer transition duration-300 ease-in-out'
-          >
-            Login
-          </NavLink>
-
-          <NavLink
-            to='/register'
-            className='bg-brand-500 text-white rounded-xl px-4 py-2 hover:bg-brand-600 transition duration-300 ease-in-out cursor-pointer'
-          >
-            Register
-          </NavLink>
+          {!isLoggedIn && (
+            <>
+              <NavLink
+                to={'/login'}
+                className='text-brand-500 cursor-pointer transition duration-300 ease-in-out'
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to='/register'
+                className='bg-brand-500 text-white rounded-xl px-4 py-2 hover:bg-brand-600 transition duration-300 ease-in-out cursor-pointer'
+              >
+                Register
+              </NavLink>
+            </>
+          )}
+          {isLoggedIn && (
+            <Stack
+              direction={'row'}
+              gap={1}
+              alignItems={'center'}
+              className='cursor-pointer'
+            >
+              <i className='fi fi-rr-power'></i>
+              <Typography
+                variant='body1'
+                onClick={logoutHandler}
+              >
+                Logout
+              </Typography>
+            </Stack>
+          )}
         </div>
       </Toolbar>
     </AppBar>

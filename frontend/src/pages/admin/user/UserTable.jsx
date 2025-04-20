@@ -22,7 +22,7 @@ const UserTable = ({ rows, loading, onView }) => {
       field: 'mobile',
       headerName: 'Mobile',
       flex: 1.5,
-      valueGetter: (params) =>
+      renderCell: (params) =>
         `${params?.row?.mobileCode || ''} ${
           params?.row?.mobileNumber || ''
         }`.trim(),
@@ -32,11 +32,14 @@ const UserTable = ({ rows, loading, onView }) => {
       field: 'memberReference',
       headerName: 'Member Reference (User ID)',
       flex: 1.5,
+      renderCell: (params) => params?.row?.Referrer?.name,
     },
     {
       field: 'familyDevataMandir',
-      headerName: 'Family Devata Mandir (Temple ID)',
+      headerName: 'Family Devata Mandir',
       flex: 1.5,
+      renderCell: (params) =>
+        params?.row?.familyDevata?.mandirName,
     },
     {
       field: 'actions',

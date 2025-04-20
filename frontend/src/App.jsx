@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
-import './App.css';
+import '@/styles/App.css';
 import { createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import '@fontsource/montserrat';
@@ -24,6 +24,7 @@ import Temples from './pages/admin/temple/Temples';
 import Events from './pages/admin/events/Events';
 import Users from './pages/admin/user/Users';
 import HomePageContent from './pages/admin/homePageContent/HomePageContent';
+import AddTemple from './pages/temple/AddTemple';
 
 function App() {
   const theme = createTheme({
@@ -45,6 +46,10 @@ function App() {
 
         <Route element={<AppLayout />}>
           <Route path='home' element={<Home />} />
+          <Route
+            path='temple/new'
+            element={<AddTemple />}
+          ></Route>
         </Route>
 
         <Route element={<AuthLayout />}>

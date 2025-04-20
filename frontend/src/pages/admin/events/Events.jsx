@@ -33,6 +33,7 @@ const Events = () => {
   };
   const viewHandler = (id) => {
     const event = events.find((t) => t.id === id);
+    console.log(event);
     setSelectedEvent(event);
     setDrawerOpen(true);
   };

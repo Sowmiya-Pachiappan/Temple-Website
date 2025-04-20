@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Temple from '../models/templeModel.js';
 import User from '../models/userModel.js';
-import sendEmail from '../utils/sendEmail.js';
+import { sendTempleCreateEmail } from '../utils/sendEmail.js';
 
 export const createTemple = asyncHandler(
   async (req, res) => {
@@ -18,9 +18,8 @@ export const createTemple = asyncHandler(
         managedBy,
         mapLink,
         description,
+        creatorEmail,
       } = req.body;
-
-      const userEmail = req.email;
 
       const temple = await Temple.create({
         mandirName,
@@ -34,7 +33,7 @@ export const createTemple = asyncHandler(
         managedBy,
         mapLink,
         description,
-        email: userEmail,
+        creatorEmail,
         isVerified: false,
       });
 
@@ -44,7 +43,7 @@ export const createTemple = asyncHandler(
 
       const emailPromises = admins.map(
         async (admin) =>
-          await sendEmail({
+          await sendTempleCreateEmail({
             to: admin.email,
             subject:
               'New Temple Submission - Verification Needed 🙏',
@@ -181,13 +180,13 @@ export const verifyTemple = asyncHandler(
 
       temple.isVerified = true;
 
-      await temple.save();
-
-      if (temple.email) {
-        await sendEmail({
-          to: temple.creatorEmail,
-          subject: 'Your Temple Has Been Verified 🎉',
-          intro: `Your temple "${temple.mandirName}" has been successfully verified!`,
+      const { dataValues } = await temple.save();
+      console.log(dataValues);
+      if (dataValues.creatorEmail) {
+        await sendTempleCreateEmail({
+          to: dataValues.creatorEmail,
+          subject: 'Your Temple Has Been Verified',
+          intro: `Your temple "${dataValues.mandirName}" has been successfully verified!`,
           instructions:
             'Click below to visit your dashboard:',
           buttonText: 'View My Temple',

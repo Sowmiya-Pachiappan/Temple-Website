@@ -12,7 +12,7 @@ const RedirectLogic = () => {
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
       } else {
-        navigate('/dashboard');
+        navigate('/home');
       }
     } else {
       navigate('/home');

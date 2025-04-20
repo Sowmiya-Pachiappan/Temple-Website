@@ -79,14 +79,14 @@ const UserDrawer = ({ open, onClose, user }) => {
               </Grid>
               <Grid item size={12}>
                 <Typography variant='body1'>
-                  <strong>Member Reference ID:</strong>{' '}
-                  {user.memberReference || '—'}
+                  <strong>Member Reference:</strong>{' '}
+                  {user.Referrer.name || '—'}
                 </Typography>
               </Grid>
               <Grid item size={12}>
                 <Typography variant='body1'>
-                  <strong>Family Devata Mandir ID:</strong>{' '}
-                  {user.familyDevataMandir || '—'}
+                  <strong>Family Devata Mandir:</strong>{' '}
+                  {user.familyDevata.mandirName || '—'}
                 </Typography>
               </Grid>
             </Grid>

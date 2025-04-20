@@ -9,17 +9,17 @@ import {
 } from '../controllers/eventController.js';
 import { authenticate } from '../middlewares/authMiddleware.js';
 
-const evntRouter = express.Router();
+const eventRouter = express.Router();
 
-evntRouter
+eventRouter
   .route('/')
   .post(authenticate, createEvent)
   .get(getAllEvents);
-evntRouter
+eventRouter
   .route('/:id')
   .get(getEventById)
   .put(authenticate, updateEvent)
   .delete(authenticate, deleteEvent);
-evntRouter.get('/temple/:templeId', getEventsByTemple);
+eventRouter.get('/temple/:templeId', getEventsByTemple);
 
-export default evntRouter;
+export default eventRouter;

@@ -19,7 +19,7 @@ const mailGenerator = new Mailgen({
   },
 });
 
-const sendEmail = async ({
+export const sendTempleCreateEmail = async ({
   to,
   subject,
   intro,
@@ -52,5 +52,41 @@ const sendEmail = async ({
 
   await transporter.sendMail(message);
 };
+export const sendContactEmail = async ({
+  name,
+  email,
+  phone,
+  subject,
+  message,
+}) => {
+  const emailBody = {
+    body: {
+      name: name || 'Anonymous',
+      intro:
+        'You have received a new message from the Temple Outreach contact form.',
+      table: {
+        data: [
+          {
+            Name: name,
+            Email: email,
+            Phone: phone || 'N/A',
+            Subject: subject || 'No Subject',
+            Message: message,
+          },
+        ],
+      },
+      outro: 'Please follow up with the user if necessary.',
+    },
+  };
 
-export default sendEmail;
+  const emailHtml = mailGenerator.generate(emailBody);
+
+  const mailOptions = {
+    from: `"${name}" <${email}>`,
+    to: process.env.EMAIL_TO,
+    subject: subject || 'New Contact Form Message',
+    html: emailHtml,
+  };
+
+  await transporter.sendMail(mailOptions);
+};

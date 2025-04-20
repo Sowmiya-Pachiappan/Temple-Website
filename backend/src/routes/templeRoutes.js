@@ -14,10 +14,7 @@ import {
 
 const templeRouter = express.Router();
 
-templeRouter
-  .route('/')
-  .post(authenticate, createTemple)
-  .get(getTemples);
+templeRouter.route('/').post(createTemple).get(getTemples);
 
 templeRouter
   .route('/:id')

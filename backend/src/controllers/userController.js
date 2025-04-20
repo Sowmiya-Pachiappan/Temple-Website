@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import Temple from '../models/templeModel.js';
 
 export const connectUserToTemple = asyncHandler(
   async (req, res) => {
@@ -39,7 +40,23 @@ export const getUsers = asyncHandler(async (req, res) => {
   try {
     const users = await User.findAll({
       order: [['createdAt', 'DESC']],
+      where: {
+        role: 'user',
+      },
+      include: [
+        {
+          model: Temple,
+          attributes: ['mandirName'],
+          as: 'familyDevata',
+        },
+        {
+          model: User,
+          attributes: ['name', 'email'],
+          as: 'Referrer',
+        },
+      ],
     });
+
     res.send({ users });
   } catch (error) {
     console.log(error);

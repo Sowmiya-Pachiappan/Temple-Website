@@ -10,106 +10,190 @@ import {
   InputLabel,
   FormControl,
   Grid,
+  Snackbar,
+  Alert,
+  Divider,
 } from '@mui/material';
 import { MuiPhone } from '@/components/PhoneInput';
-import axios from 'axios';
+import Image from '@/assets/images/registerImage.jpg';
+import { getUsers } from '@/api/userApi';
+import { getTemples } from '@/api/templeApi';
+import { register } from '@/api/authApi';
+import AddTemple from '../temple/AddTemple';
+import { useNavigate } from 'react-router';
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     name: '',
     fatherName: '',
     motherName: '',
-    mobileCode: '',
+    mobileCode: '+91',
     mobileNumber: '',
-    familydevataMandir: '',
+    email: '',
+    password: '',
+    familyDevataMandir: '',
     memberReference: '',
-    templeName: '',
-    address: '',
-    district: '',
-    state: '',
-    pincode: '',
-    phoneCode: '',
-    phoneNumber: '',
-    managedBy: '',
-    mapLink: '',
   });
 
+  const [error, setError] = useState('');
+  const [showErrorAlert, setShowErrorAlert] =
+    useState(false);
+
+  const [showSuccessAlert, setShowSuccessAlert] =
+    useState(false);
   const [devataMandirs, setDevataMandirs] = useState([]);
   const [memberReferences, setMemberReferences] = useState(
     []
   );
-
+  const [showAddTemple, setShowAddTemple] = useState(false);
   const handleChange = (e) => {
     if (e?.target) {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     } else {
-      // When using third-party components like PhoneInput
-      const { name, value } = e; // Adjust this based on the component's API
+      const { name, value } = e;
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setLoading(true);
+    try {
+      const res = await register({
+        ...formData,
+        role: 'user',
+      });
+
+      setShowSuccessAlert(true);
+      const { user, token } = res.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', token);
+      window.location.href = '/';
+    } catch (err) {
+      const message =
+        err.response?.data?.message || err.message;
+      setError(message);
+      setShowErrorAlert(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const userRes = await getUsers();
+      setMemberReferences(userRes?.data?.users);
+      const templeRes = await getTemples();
+      setDevataMandirs(templeRes?.data?.temples);
+    } catch (err) {
+      const message =
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        err?.error ||
+        err?.message;
+      setError(message);
+      setShowErrorAlert(true);
+    }
   };
 
   useEffect(() => {
-    // Fetching Family Devata Mandir options from API
-    axios
-      .get('/api/devata-mandirs')
-      .then((response) => setDevataMandirs(response.data))
-      .catch((error) =>
-        console.error(
-          'Error fetching Devata Mandirs:',
-          error
-        )
-      );
-
-    // Fetching Member Reference options from API
-    axios
-      .get('/api/member-references')
-      .then((response) =>
-        setMemberReferences(response.data)
-      )
-      .catch((error) =>
-        console.error(
-          'Error fetching Member References:',
-          error
-        )
-      );
+    fetchData();
   }, []);
 
+  const closeHandler = () => {
+    setShowErrorAlert(false);
+    setShowSuccessAlert(false);
+  };
+  const addFamilyDevataMandir = () => {
+    setShowAddTemple(true);
+  };
+  const closeAddTempleHandler = () => {
+    setShowAddTemple(false);
+    navigate('/');
+  };
   return (
-    <Grid container className='min-h-screen h-[calc()]'>
-      <Grid size={2} className='bg-brand-500 '></Grid>
-      <Grid size={10} className='p-10'>
+    <Grid
+      container
+      className='min-h-screen h-full'
+      alignItems='stretch'
+    >
+      <AddTemple
+        onClose={closeAddTempleHandler}
+        open={showAddTemple}
+        setOpen={setShowAddTemple}
+      />
+      <Snackbar
+        open={showErrorAlert}
+        autoHideDuration={3000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        onClose={closeHandler}
+      >
+        <Alert
+          severity='error'
+          onClose={closeHandler}
+          className='mb-10'
+        >
+          {error}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={showSuccessAlert}
+        autoHideDuration={3000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        onClose={closeHandler}
+      >
+        <Alert
+          severity='success'
+          onClose={closeHandler}
+          className='mb-10'
+        >
+          Account is registered successfully
+        </Alert>
+      </Snackbar>
+
+      <Grid item size={4}>
+        <img
+          src={Image}
+          alt='Register Visual'
+          className='h-full object-cover w-full'
+        />
+      </Grid>
+
+      <Grid item size={8} className='p-10'>
         <Box component='form' onSubmit={handleSubmit}>
           <Typography
             variant='h5'
-            align='center'
             gutterBottom
             className='font-semibold mb-5'
           >
-            Registration Form
+            Join the Divine Circle
           </Typography>
           <Grid container spacing={2}>
-            <Grid size={4}>
-              {/* Title */}
+            {/* Title and Name */}
+            <Grid item size={4}>
               <Stack direction={'row'}>
                 <FormControl
                   fullWidth
                   size='small'
-                  className='w-2/6'
+                  className='flex-1/2'
                 >
                   <InputLabel>Title</InputLabel>
                   <Select
-                    label='Title'
                     name='title'
                     value={formData.title}
                     onChange={handleChange}
+                    label='Title'
                   >
                     <MenuItem value='Mr'>Mr</MenuItem>
                     <MenuItem value='Ms'>Ms</MenuItem>
@@ -117,10 +201,7 @@ const Register = () => {
                     <MenuItem value='Dr'>Dr</MenuItem>
                   </Select>
                 </FormControl>
-
-                {/* Name */}
                 <TextField
-                  className='w-4/6'
                   label='Name'
                   name='name'
                   value={formData.name}
@@ -131,8 +212,8 @@ const Register = () => {
                 />
               </Stack>
             </Grid>
-            {/* Father Name */}
-            <Grid size={4}>
+
+            <Grid item size={4}>
               <TextField
                 label="Father's Name"
                 name='fatherName'
@@ -141,9 +222,9 @@ const Register = () => {
                 fullWidth
                 size='small'
               />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Mother Name */}
+            </Grid>
+
+            <Grid item size={4}>
               <TextField
                 label="Mother's Name"
                 name='motherName'
@@ -152,40 +233,91 @@ const Register = () => {
                 fullWidth
                 size='small'
               />
-            </Grid>{' '}
-            <Grid size={4}>
+            </Grid>
+
+            {/* Phone */}
+            <Grid item size={4}>
               <MuiPhone
-                name='mobile'
-                value={formData.mobileNumber}
-                onChange={handleChange}
+                value={`+${formData.mobileCode}${formData.mobileNumber}`}
+                onChange={({
+                  mobileCode,
+                  mobileNumber,
+                }) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    mobileCode,
+                    mobileNumber,
+                  }));
+                }}
                 size='small'
               />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Family Devata Mandir */}
+            </Grid>
+
+            {/* Email */}
+            <Grid item size={4}>
+              <TextField
+                label='Email'
+                name='email'
+                type='email'
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                size='small'
+                required
+              />
+            </Grid>
+
+            {/* Password */}
+            <Grid item size={4}>
+              <TextField
+                label='Password'
+                name='password'
+                type='password'
+                value={formData.password}
+                onChange={handleChange}
+                fullWidth
+                size='small'
+                required
+              />
+            </Grid>
+
+            {/* Family Devata Mandir */}
+            <Grid item size={4}>
               <FormControl fullWidth size='small'>
                 <InputLabel>
                   Family Devata Mandir
                 </InputLabel>
                 <Select
                   label='Family Devata Mandir'
-                  name='familydevataMandir'
-                  value={formData.familydevataMandir}
+                  name='familyDevataMandir'
+                  value={formData.familyDevataMandir}
                   onChange={handleChange}
                 >
                   {devataMandirs.map((mandir) => (
                     <MenuItem
                       key={mandir.id}
-                      value={mandir.name}
+                      value={mandir.id}
                     >
-                      {mandir.name}
+                      {mandir.mandirName}
                     </MenuItem>
                   ))}
+                  <Divider />
+
+                  <MenuItem key='addTemple'>
+                    <Button
+                      variant='text'
+                      onClick={addFamilyDevataMandir}
+                      className='text-current'
+                    >
+                      Add New Family Devata Mandir
+                    </Button>
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>
-            <Grid size={4}>
-              {/* Member Reference */}
+
+            {/* Member Reference */}
+            <Grid item size={4}>
               <FormControl fullWidth size='small'>
                 <InputLabel>Member Reference</InputLabel>
                 <Select
@@ -197,7 +329,7 @@ const Register = () => {
                   {memberReferences.map((member) => (
                     <MenuItem
                       key={member.id}
-                      value={member.name}
+                      value={member.id}
                     >
                       {member.name}
                     </MenuItem>
@@ -205,106 +337,20 @@ const Register = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid size={4}>
-              {/* Temple Name */}
-              <TextField
-                label='Temple Name'
-                name='templeName'
-                value={formData.templeName}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Address */}
-              <TextField
-                label='Address'
-                name='address'
-                value={formData.address}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                rows={2}
-                size='small'
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* District */}
-              <TextField
-                label='District'
-                name='district'
-                value={formData.district}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* State */}
-              <TextField
-                label='State'
-                name='state'
-                value={formData.state}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Pincode */}
-              <TextField
-                label='Pincode'
-                name='pincode'
-                value={formData.pincode}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Phone Code & Number */}
 
-              <MuiPhone
-                size='small'
-                name='phone'
-                value={formData.mobileNumber}
-                onChange={handleChange}
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Managed By */}
-              <TextField
-                label='Managed By'
-                name='managedBy'
-                value={formData.managedBy}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
-            </Grid>{' '}
-            <Grid size={4}>
-              {/* Map Link */}
-              <TextField
-                label='Map Link'
-                name='mapLink'
-                value={formData.mapLink}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
+            <Grid item xs={12}>
+              <Button
+                type='submit'
+                size='medium'
+                variant='contained'
+                disabled={loading}
+                className='text-white bg-brand-500'
+              >
+                {loading
+                  ? 'Registering...'
+                  : 'Register Now'}
+              </Button>
             </Grid>
-          </Grid>
-          <Grid size={4}>
-            {/* Submit Button */}
-            <Button
-              type='submit'
-              size='small'
-              sx={{ mt: 2 }}
-              className='text-white bg-brand-500'
-            >
-              Submit
-            </Button>
           </Grid>
         </Box>
       </Grid>

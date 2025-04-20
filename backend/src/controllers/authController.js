@@ -12,19 +12,31 @@ export const register = async (req, res) => {
     const existingUser = await User.findOne({
       where: { email },
     });
-    if (existingUser)
+    if (existingUser) {
       return res
         .status(400)
         .send({ message: 'Email already in use' });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    console.log({
+      ...restData,
+      email,
+      password: hashedPassword,
+      role: req.body.role ?? 'user',
+    });
     const user = await User.create({
       ...restData,
       email,
       password: hashedPassword,
+      role: req.body.role ?? 'user',
     });
-
+    console.log({
+      ...restData,
+      email,
+      password: hashedPassword,
+      role: req.body.role ?? 'user',
+    });
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,

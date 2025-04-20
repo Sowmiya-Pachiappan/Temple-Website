@@ -1,16 +1,26 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
 import Temple1 from '@/assets/images/temple-1.jpg';
 import Temple2 from '@/assets/images/hero.jpg';
 import Temple3 from '@/assets/images/temple-9.jpg';
 
 const Hero = () => {
   return (
-    <div
-      className={`rounded-md  relative flex bg-cover h-[calc(100vh-104px)] bg-center bg-[url(@/assets/images/temple-2.jpeg)] `}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className={`rounded-md relative flex bg-cover h-[calc(100vh-104px)] bg-center bg-[url(@/assets/images/temple-2.jpeg)]`}
     >
-      <div className='absolute rounded-md inset-0 bg-gradient-to-r from-black  to-black opacity-75'></div>
+      <div className='absolute rounded-md inset-0 bg-gradient-to-r from-black to-black opacity-75'></div>
 
-      <Box className='relative z-10 flex flex-col gap-5 text-white h-full justify-center text-center px-4 w-1/2'>
+      {/* Text Content with motion */}
+      <motion.div
+        initial={{ x: -60, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.2 }}
+        className='relative z-10 flex flex-col gap-5 text-white h-full justify-center text-center p-10 w-1/2'
+      >
         <Typography
           variant='h4'
           className='leading-12 font-semibold text-left'
@@ -36,70 +46,55 @@ const Hero = () => {
             <span className='relative z-10'>
               Explore More
             </span>
-
-            {/* Expanding background hover effect */}
             <span className='absolute left-0 top-0 h-full w-0 bg-brand-600 z-0 group-hover:w-full transition-all duration-500'></span>
           </Button>
         </div>
-      </Box>
-      <Box className='w-1/2 z-10'>
-        <div className='banner__video'>
-          <a
-            href='https://www.youtube.com/watch?v=XHOmBV4js_E'
-            className='popup-video'
-          >
-            <i className='fi fi-sr-play'></i>
-          </a>
-        </div>
+      </motion.div>
+      <div className='banner__video'>
+        <a
+          href='https://www.youtube.com/watch?v=XHOmBV4js_E'
+          className='popup-video'
+        >
+          <i className='fi fi-sr-play'></i>
+        </a>
+      </div>
+      {/* Image Section with motion */}
+      <motion.div
+        initial={{ x: 60, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.3 }}
+        className='w-1/2 z-10'
+      >
         <div className='grid grid-rows-6 grid-cols-6 gap-10 p-10 h-full w-full'>
-          <img
+          <motion.img
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8 }}
             src={Temple1}
             alt='Image 1'
-            className='row-start-2 row-end-6 col-start-1 col-end-4 w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105'
+            className='row-start-2 row-end-6 col-start-1 col-end-4 w-full h-full object-cover rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300'
           />
 
-          <img
+          <motion.img
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
             src={Temple3}
             alt='Image 2'
-            className='row-start-1 row-end-4 col-start-4 col-end-7 w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105'
+            className='row-start-1 row-end-4 col-start-4 col-end-7 w-full h-full object-cover rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300'
           />
 
-          <img
+          <motion.img
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
             src={Temple2}
             alt='Image 3'
-            className='row-start-4 row-end-7 col-start-4 col-end-7 w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105'
+            className='row-start-4 row-end-7 col-start-4 col-end-7 w-full h-full object-cover rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300'
           />
         </div>
-      </Box>
-      {/* <img
-        src={Arrow}
-        className='absolute h-1/4 left-2/5 rotate-45 top-2/6'
-      /> */}
-      {/* <Box className='flex-1/2 '>
-        <div className='grid grid-rows-6 grid-cols-6 gap-4 p-4 h-full w-full'>
-         
-          <img
-            src={Temple1}
-            alt='Image 1'
-            className='row-start-2 row-end-6 col-start-1 col-end-4 w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105'
-          />
-
-         
-          <img
-            src={Temple3}
-            alt='Image 2'
-            className='row-start-1 row-end-4 col-start-4 col-end-7 w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105'
-          />
-
-       
-          <img
-            src={Temple2}
-            alt='Image 3'
-            className='row-start-4 row-end-7 col-start-4 col-end-7 w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105'
-          />
-        </div>
-      </Box> */}
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

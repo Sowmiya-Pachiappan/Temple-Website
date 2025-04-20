@@ -15,7 +15,9 @@ import {
   VisibilityOff,
 } from '@mui/icons-material';
 import { login } from '@/api/authApi';
-import { useNavigate } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
+import Logo from '@/assets/images/logo.png';
+import Image from '@/assets/images/LoginImage.jpg';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -62,19 +64,39 @@ const Login = () => {
   return (
     <Grid
       container
-      alignItems={'center'}
+      alignItems={'stretch'}
       justifyContent={'center'}
       className='h-full'
       style={{ minHeight: '100vh' }}
     >
-      <Grid size={4}>
-        <Box component='form' onSubmit={handleSubmit}>
+      <Grid size={6}>
+        <img
+          src={Image}
+          alt=''
+          className='h-full object-cover'
+        />
+      </Grid>
+      <Grid
+        size={6}
+        className='p-10 flex items-center justify-center'
+      >
+        <Box
+          component='form'
+          onSubmit={handleSubmit}
+          className='flex flex-col gap-2 w-3/4'
+        >
+          <NavLink
+            to='/'
+            className='flex items-center justify-center space-x-4'
+          >
+            <img src={Logo} width={50} alt='Logo' />
+          </NavLink>
           <Typography
-            variant='h4'
+            variant='h5'
             align='center'
             gutterBottom
           >
-            Welcome Back
+            Reconnect with the Divine
           </Typography>
 
           <Snackbar

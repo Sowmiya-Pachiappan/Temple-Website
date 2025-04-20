@@ -29,7 +29,16 @@ export const MuiPhone = ({
     value,
     countries: defaultCountries,
     onChange: (data) => {
-      onChange(data.phone);
+      const mobileCode = `+${data.country.dialCode}`;
+      const mobileNumber = data.phone
+        .replace(mobileCode, '')
+        .trim();
+
+      onChange({
+        fullPhone: data.phone,
+        mobileCode,
+        mobileNumber,
+      });
     },
   });
 
@@ -69,17 +78,11 @@ export const MuiPhone = ({
               }}
               sx={{
                 width: 'max-content',
-                // Remove default outline (display only on focus)
-                fieldset: {
-                  display: 'none',
-                },
+                fieldset: { display: 'none' },
                 '&.Mui-focused:has(div[aria-expanded="false"])':
                   {
-                    fieldset: {
-                      display: 'block',
-                    },
+                    fieldset: { display: 'block' },
                   },
-                // Update default spacing
                 '.MuiSelect-select': {
                   padding: '8px',
                   paddingRight: '24px !important',

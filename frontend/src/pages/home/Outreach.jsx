@@ -1,15 +1,25 @@
 import ImageSwiper from '@/components/ImageSwiper';
 import { Button, Stack } from '@mui/material';
 import { motion } from 'motion/react';
+import { useState } from 'react';
+import EventModal from './components/EventModal';
 
 const Outreach = () => {
+  const [showEventModal, setShowEventModal] =
+    useState(false);
+  const postFestHandler = () => {
+    setShowEventModal(true);
+  };
+  const closeHandler = () => {
+    setShowEventModal(false);
+  };
+  console.log(showEventModal);
   return (
     <motion.div
       id='outreach'
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
       className='px-10 flex flex-col  items-center justify-center py-10 gap-6 bg-white'
     >
       <motion.div
@@ -17,8 +27,11 @@ const Outreach = () => {
         initial={{ x: 50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        viewport={{ once: true }}
       >
+        <EventModal
+          open={showEventModal}
+          onClose={closeHandler}
+        />
         <Stack gap={1}>
           <Stack
             direction={'row'}
@@ -33,7 +46,7 @@ const Outreach = () => {
             <h6 className='text-brand-500 font-bold '>
               OUTREACH
             </h6>
-            <Stack gap={0.5} alignItems={'center'}>
+            <Stack gap={0.5} alignItems={'flex-start'}>
               <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
               <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
             </Stack>
@@ -53,6 +66,7 @@ const Outreach = () => {
           </p>
           <div>
             <Button
+              onClick={postFestHandler}
               variant='contained'
               className='mt-4 bg-brand-500 text-white px-6 py-2 rounded-md hover:bg-brand-600 transition-colors duration-300 shadow-md'
             >
@@ -62,20 +76,7 @@ const Outreach = () => {
         </Stack>
       </motion.div>
 
-      <motion.div
-        className='w-full'
-        initial={{ x: -50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
-      >
-        {/* <img
-                src={Image}
-                alt='Kula Devata'
-                className='rounded-md shadow-lg w-full object-cover'
-              /> */}
-        <ImageSwiper />
-      </motion.div>
+      <ImageSwiper />
     </motion.div>
   );
 };

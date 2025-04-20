@@ -6,16 +6,21 @@ const EventTable = ({ rows, loading, onView }) => {
   const columns = [
     { field: 'id', headerName: 'ID', flex: 0.5 },
     {
-      field: 'templeId',
-      headerName: 'Temple ID',
+      field: 'mandirName',
+      headerName: 'Temple',
       flex: 1,
+      renderCell: (params) =>
+        params?.row?.Temple?.mandirName,
     },
     {
       field: 'eventDate',
       headerName: 'Event Date',
       flex: 1,
-      valueGetter: (params) =>
-        new Date(params.row.eventDate).toLocaleDateString(),
+
+      renderCell: (params) =>
+        new Date(params?.row?.eventDate).toLocaleDateString(
+          'en-GB'
+        ),
     },
     {
       field: 'details',
@@ -24,8 +29,9 @@ const EventTable = ({ rows, loading, onView }) => {
     },
     {
       field: 'createdBy',
-      headerName: 'Created By (User ID)',
+      headerName: 'Created By',
       flex: 1,
+      renderCell: (params) => params?.row?.User?.name,
     },
     {
       field: 'actions',
@@ -35,7 +41,7 @@ const EventTable = ({ rows, loading, onView }) => {
         <Stack direction={'row'}>
           <IconButton
             className='text-blue-500'
-            onClick={() => onView(params.row.id)}
+            onClick={() => onView(params?.row?.id)}
           >
             <RemoveRedEye />
           </IconButton>

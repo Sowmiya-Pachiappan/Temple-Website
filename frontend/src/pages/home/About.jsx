@@ -35,7 +35,6 @@ const About = () => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
     >
       {/* Image Section */}
       <motion.div
@@ -43,7 +42,6 @@ const About = () => {
         initial={{ x: -50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
       >
         <img
           src={Image}
@@ -58,7 +56,6 @@ const About = () => {
         initial={{ x: 50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        viewport={{ once: true }}
       >
         <Stack gap={1} alignItems={'start'}>
           <Stack
