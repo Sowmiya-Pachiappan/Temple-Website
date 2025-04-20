@@ -168,12 +168,16 @@ const AddTemple = ({ onClose, open, setOpen }) => {
 
             <Grid item size={12}>
               <MuiPhone
-                value={`+${formData.phoneCode}${formData.phoneNumber}`}
-                onChange={({ phoneCode, phoneNumber }) => {
+                value={`${formData.phoneCode}${formData.phoneNumber}`} // ✅ Correct syntax
+                onChange={({
+                  fullPhone,
+                  mobileCode,
+                  mobileNumber,
+                }) => {
                   setFormData((prev) => ({
                     ...prev,
-                    phoneCode,
-                    phoneNumber,
+                    phoneCode: `${mobileCode}`,
+                    phoneNumber: mobileNumber,
                   }));
                 }}
                 size='small'

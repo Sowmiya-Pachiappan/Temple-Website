@@ -25,7 +25,7 @@ export const MuiPhone = ({
     country,
     setCountry,
   } = usePhoneInput({
-    defaultCountry: 'us',
+    defaultCountry: 'in',
     value,
     countries: defaultCountries,
     onChange: (data) => {

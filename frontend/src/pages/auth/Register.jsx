@@ -162,7 +162,7 @@ const Register = () => {
         </Alert>
       </Snackbar>
 
-      <Grid item size={4}>
+      <Grid size={4}>
         <img
           src={Image}
           alt='Register Visual'
@@ -170,7 +170,7 @@ const Register = () => {
         />
       </Grid>
 
-      <Grid item size={8} className='p-10'>
+      <Grid size={8} className='p-10'>
         <Box component='form' onSubmit={handleSubmit}>
           <Typography
             variant='h5'
@@ -181,7 +181,7 @@ const Register = () => {
           </Typography>
           <Grid container spacing={2}>
             {/* Title and Name */}
-            <Grid item size={4}>
+            <Grid size={6}>
               <Stack direction={'row'}>
                 <FormControl
                   fullWidth
@@ -213,7 +213,7 @@ const Register = () => {
               </Stack>
             </Grid>
 
-            <Grid item size={4}>
+            <Grid size={6}>
               <TextField
                 label="Father's Name"
                 name='fatherName'
@@ -224,7 +224,7 @@ const Register = () => {
               />
             </Grid>
 
-            <Grid item size={4}>
+            <Grid size={6}>
               <TextField
                 label="Mother's Name"
                 name='motherName'
@@ -236,7 +236,7 @@ const Register = () => {
             </Grid>
 
             {/* Phone */}
-            <Grid item size={4}>
+            <Grid size={6}>
               <MuiPhone
                 value={`+${formData.mobileCode}${formData.mobileNumber}`}
                 onChange={({
@@ -254,7 +254,7 @@ const Register = () => {
             </Grid>
 
             {/* Email */}
-            <Grid item size={4}>
+            <Grid size={6}>
               <TextField
                 label='Email'
                 name='email'
@@ -268,7 +268,7 @@ const Register = () => {
             </Grid>
 
             {/* Password */}
-            <Grid item size={4}>
+            <Grid size={6}>
               <TextField
                 label='Password'
                 name='password'
@@ -282,7 +282,7 @@ const Register = () => {
             </Grid>
 
             {/* Family Devata Mandir */}
-            <Grid item size={4}>
+            <Grid size={6}>
               <FormControl fullWidth size='small'>
                 <InputLabel>
                   Family Devata Mandir
@@ -317,7 +317,7 @@ const Register = () => {
             </Grid>
 
             {/* Member Reference */}
-            <Grid item size={4}>
+            <Grid size={6}>
               <FormControl fullWidth size='small'>
                 <InputLabel>Member Reference</InputLabel>
                 <Select
@@ -338,17 +338,16 @@ const Register = () => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12} className='flex justify-end'>
               <Button
+                loading={loading}
                 type='submit'
                 size='medium'
                 variant='contained'
                 disabled={loading}
-                className='text-white bg-brand-500'
+                className='text-white inline bg-brand-500'
               >
-                {loading
-                  ? 'Registering...'
-                  : 'Register Now'}
+                Register Now
               </Button>
             </Grid>
           </Grid>
