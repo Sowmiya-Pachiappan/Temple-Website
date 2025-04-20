@@ -1,6 +1,8 @@
 import axios from './indexApi';
 
 export const getTemples = () => axios.get('/temples');
+export const getVerifiedTemples = () =>
+  axios.get('/temples/verified');
 
 export const getTempleById = (id) =>
   axios.get(`/temples/${id}`);

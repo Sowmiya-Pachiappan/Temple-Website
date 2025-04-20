@@ -1,5 +1,5 @@
 import { createEvent } from '@/api/eventsApi';
-import { getTemples } from '@/api/templeApi';
+import { getVerifiedTemples } from '@/api/templeApi';
 import { Close } from '@mui/icons-material';
 import {
   Modal,
@@ -50,7 +50,7 @@ const EventModal = ({ open, onClose }) => {
 
   const fetchData = async () => {
     try {
-      const templeRes = await getTemples();
+      const templeRes = await getVerifiedTemples();
       setDevataMandirs(templeRes?.data?.temples);
     } catch (err) {
       const message =

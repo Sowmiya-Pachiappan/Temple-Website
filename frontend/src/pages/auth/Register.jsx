@@ -17,7 +17,7 @@ import {
 import { MuiPhone } from '@/components/PhoneInput';
 import Image from '@/assets/images/registerImage.jpg';
 import { getUsers } from '@/api/userApi';
-import { getTemples } from '@/api/templeApi';
+import { getVerifiedTemples } from '@/api/templeApi';
 import { register } from '@/api/authApi';
 import AddTemple from '../temple/AddTemple';
 import { useNavigate } from 'react-router';
@@ -87,7 +87,7 @@ const Register = () => {
     try {
       const userRes = await getUsers();
       setMemberReferences(userRes?.data?.users);
-      const templeRes = await getTemples();
+      const templeRes = await getVerifiedTemples();
       setDevataMandirs(templeRes?.data?.temples);
     } catch (err) {
       const message =

@@ -84,6 +84,25 @@ export const getTemples = asyncHandler(async (req, res) => {
   }
 });
 
+export const getVerifiedTemples = asyncHandler(
+  async (req, res) => {
+    try {
+      const temples = await Temple.findAll({
+        order: [['createdAt', 'DESC']],
+        where: {
+          isVerified: true,
+        },
+      });
+      res.send({ temples });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .send({ message: 'Failed to fetch temples' });
+    }
+  }
+);
+
 export const getTempleById = asyncHandler(
   async (req, res) => {
     try {

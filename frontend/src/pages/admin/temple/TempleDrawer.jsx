@@ -133,11 +133,9 @@ const TempleDrawer = ({ open, onClose, temple }) => {
               {temple?.mapLink && (
                 <Grid item size={12}>
                   <Button
-                    variant='contained'
-                    color='primary'
+                    className='w-full bg-brand-500 hover:bg-brand-600 text-white'
                     href={temple?.mapLink}
                     target='_blank'
-                    sx={{ width: '100%' }}
                   >
                     View on Map
                   </Button>
