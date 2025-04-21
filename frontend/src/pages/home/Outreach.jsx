@@ -13,7 +13,7 @@ const Outreach = () => {
   const closeHandler = () => {
     setShowEventModal(false);
   };
-  console.log(showEventModal);
+  console.log('Outreach');
   return (
     <motion.div
       id='outreach'

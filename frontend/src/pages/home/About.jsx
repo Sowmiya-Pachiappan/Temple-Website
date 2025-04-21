@@ -1,33 +1,19 @@
 import { useState } from 'react';
-import { Button, Stack } from '@mui/material';
-import { motion } from 'motion/react';
-import Image from '@/assets/images/temple-8.jpg';
+import {
+  Button,
+  Stack,
+  CircularProgress,
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { convert } from 'html-to-text';
 
-const About = () => {
+const About = ({ data, loading }) => {
   const [showFull, setShowFull] = useState(false);
 
-  const content = `
-    A Kula Devata (family deity) - The word is derived from two words: Kula, meaning clan and devata, meaning deity. 
-    It refers to the ancestral tutelary deity worshipped by a particular kula (clan) and gotra (lineage). 
-    This deity acts as a guardian, protecting the entire lineage of the clan from misfortunes (daridram) and evil 
-    influences like black magic, the evil eye, and depression. Worshiping the Kula Devata is deeply significant, 
-    as it strengthens the bond between the family and the deity, ensuring blessings and protection. Many people face 
-    hardships despite visiting various temples and astrologers, often because they have forgotten their Kula Devata. 
-    While no deity will harm you for neglecting worship, reconnecting with your family deity is essential, especially 
-    if your family is facing difficulties. Ideally, family members should visit the Kula Devata’s temple at least once 
-    a year. If your cousins or paternal relatives continue the worship and include your details in rituals (pooja/sankalpa), 
-    the protection remains. However, if the entire extended family loses touch with the deity, it is crucial to reestablish 
-    the connection without delay. By tradition, a father’s Kula Devata is inherited by the son, passing through generations. 
-    A married daughter adopts her husband’s Kula Devata. However, if one is unaware of the father's family deity, worshiping 
-    the mother’s Kula Devata with full devotion is an alternative. Ultimately, faith is the core of this practice—whichever 
-    deity one believes in should bring solace, peace, and strength. Kula Devata Upasana (personal deity worship) is a powerful 
-    method to handle karma. Ignoring it is like neglecting a doctor despite an illness. While some people may lead an apparently 
-    peaceful life despite not undertaking any upasana, most people require spiritual guidance to heal their karmic burdens. 
-    To restore divine blessings, ensure that your family maintains Kula Devata worship—for protection, peace, and prosperity.
-  `;
+  const shortContent = data.content.slice(0, 700) + '...';
 
-  const shortContent = content.slice(0, 700) + '...';
-
+  if (loading) return <CircularProgress sx={{ m: 4 }} />;
+  console.log(convert(data.content));
   return (
     <motion.div
       id='about'
@@ -44,7 +30,7 @@ const About = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <img
-          src={Image}
+          src={data.imageUrl}
           alt='Kula Devata'
           className='rounded-md shadow-lg w-full object-cover'
         />
@@ -75,12 +61,18 @@ const About = () => {
               <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
             </Stack>
           </Stack>
-          <h3 className='font-semibold text-2xl'>
-            Honoring Our Kula Devata – Together
-          </h3>
-          <p className='text-base leading-relaxed'>
-            {showFull ? content : shortContent}
-          </p>
+          <h3
+            className='font-semibold text-2xl'
+            dangerouslySetInnerHTML={{ __html: data.title }}
+          ></h3>
+          <p
+            className='text-base leading-relaxed'
+            dangerouslySetInnerHTML={{
+              __html: showFull
+                ? data.content
+                : shortContent,
+            }}
+          ></p>
           {!showFull && (
             <Button
               variant='text'

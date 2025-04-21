@@ -14,22 +14,34 @@ export const getHomePage = async (req, res) => {
 
 export const updateHomePage = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, content } = req.body;
     const image = req.file?.filename;
 
-    const updatedFields = { title, description };
-    if (image) {
-      updatedFields.image = image;
+    // Validate required fields
+    if (!title || !content) {
+      return res.status(400).json({
+        message: 'Title and content are required',
+      });
     }
 
-    const homepage = await HomePage.findOneAndUpdate(
-      {},
-      updatedFields,
-      {
-        new: true,
-        upsert: true,
-      }
-    );
+    const updatedFields = {
+      title,
+      content,
+    };
+
+    if (image) {
+      updatedFields.imageUrl = image;
+    }
+
+    let homepage = await HomePage.findOne();
+
+    if (!homepage) {
+      // Create if not exists
+      homepage = await HomePage.create(updatedFields);
+    } else {
+      // Update existing record
+      await homepage.update(updatedFields);
+    }
 
     res.status(200).json({
       message: 'Homepage updated successfully',

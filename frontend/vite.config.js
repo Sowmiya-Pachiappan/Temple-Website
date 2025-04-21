@@ -17,6 +17,13 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
+      '/uploads': {
+        target: 'http://localhost:5000/',
+        changeOrigin: true,
+        configure: () => {
+          // proxy will be an instance of 'http-proxy'
+        },
+      },
     },
   },
 });

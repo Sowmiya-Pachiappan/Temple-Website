@@ -118,7 +118,7 @@ const Register = () => {
   return (
     <Grid
       container
-      className='min-h-screen h-full'
+      className='md:h-screen'
       alignItems='stretch'
     >
       <AddTemple
@@ -166,7 +166,7 @@ const Register = () => {
         <img
           src={Image}
           alt='Register Visual'
-          className='h-full object-cover w-full'
+          className='object-cover w-full h-screen'
         />
       </Grid>
 

@@ -94,3 +94,10 @@ i[class^='fi fi-'] {
     opacity: 0;
   }
 }
+
+.ql-container {
+  @apply rounded-b;
+}
+.ql-toolbar {
+  @apply rounded-t;
+}

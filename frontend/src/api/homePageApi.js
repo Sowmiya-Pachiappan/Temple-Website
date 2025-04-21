@@ -1,13 +1,14 @@
 import axios from './indexApi';
 
 export const getHomePageContent = async () =>
-  axios.get('/api/homepage');
+  axios.get('/homepage');
 
 export const updateHomePageContent = async (payload) => {
   const token = await localStorage.getItem('token');
-  return axios.put('/api/homepage/update', payload, {
+  return axios.put('/homepage/update', payload, {
     headers: {
-      Authorization: `Bearer ${token} `,
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
     },
   });
 };
