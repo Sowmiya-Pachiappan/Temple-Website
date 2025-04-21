@@ -1,9 +1,4 @@
-import {
-  AppBar,
-  Stack,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 import { Link as ScrollLink, scroller } from 'react-scroll';
 import Logo from '@/assets/images/logo.png';
 import { useState, useEffect, useCallback } from 'react';
@@ -12,6 +7,7 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router';
+import UserAvatarMenu from '@/components/UserAvatarMenu';
 
 const Header = () => {
   const location = useLocation();
@@ -21,6 +17,7 @@ const Header = () => {
 
   const sections = ['home', 'about', 'outreach', 'contact'];
   const isLoggedIn = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
   // Debounced scroll handler
@@ -146,22 +143,7 @@ const Header = () => {
               </NavLink>
             </>
           )}
-          {isLoggedIn && (
-            <Stack
-              direction={'row'}
-              gap={1}
-              alignItems={'center'}
-              className='cursor-pointer'
-            >
-              <i className='fi fi-rr-power'></i>
-              <Typography
-                variant='body1'
-                onClick={logoutHandler}
-              >
-                Logout
-              </Typography>
-            </Stack>
-          )}
+          {isLoggedIn && <UserAvatarMenu user={user} />}
         </div>
       </Toolbar>
     </AppBar>

@@ -65,7 +65,7 @@ const Contact = () => {
   return (
     <motion.div
       id='contact'
-      initial={{ opacity: 0, x: 40 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className='relative flex flex-col px-10 md:flex-row  items-center justify-center py-10 gap-6 bg-brand-50'
