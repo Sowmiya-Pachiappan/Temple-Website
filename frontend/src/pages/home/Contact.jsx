@@ -65,14 +65,14 @@ const Contact = () => {
   return (
     <motion.div
       id='contact'
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, x: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className='relative flex flex-col px-10 md:flex-row  items-center justify-center py-10 gap-6 bg-brand-50'
     >
       <motion.div
         className='z-10 w-full md:w-2/3 text-gray-800'
-        initial={{ x: 50, opacity: 0 }}
+        initial={{ x: -50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
