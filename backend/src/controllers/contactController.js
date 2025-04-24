@@ -1,23 +1,24 @@
 import asyncHandler from 'express-async-handler';
 import { sendContactEmail } from '../utils/sendEmail.js';
+import Temple from '../models/templeModel.js';
 
 export const sendContactMessage = asyncHandler(
   async (req, res) => {
-    const { name, email, phone, subject, message } =
-      req.body;
+    const { name, email, templeId, message } = req.body;
 
-    if (!name || !email || !message) {
+    if (!name || !email || !message || !templeId) {
       return res.status(400).json({
-        message: 'Name, Email, and Message are required.',
+        message:
+          'Name, Email, Temple and Message are required.',
       });
     }
 
     try {
+      const temple = await Temple.findByPk(templeId);
       await sendContactEmail({
         name,
+        temple,
         email,
-        phone,
-        subject,
         message,
       });
 

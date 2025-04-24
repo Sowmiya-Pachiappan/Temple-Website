@@ -54,9 +54,8 @@ export const sendTempleCreateEmail = async ({
 };
 export const sendContactEmail = async ({
   name,
+  temple,
   email,
-  phone,
-  subject,
   message,
 }) => {
   const emailBody = {
@@ -68,9 +67,9 @@ export const sendContactEmail = async ({
         data: [
           {
             Name: name,
+            Temple: temple.mandirName,
             Email: email,
-            Phone: phone || 'N/A',
-            Subject: subject || 'No Subject',
+            Subject: 'New Contact Form Message',
             Message: message,
           },
         ],
@@ -84,7 +83,7 @@ export const sendContactEmail = async ({
   const mailOptions = {
     from: `"${name}" <${email}>`,
     to: process.env.EMAIL_TO,
-    subject: subject || 'New Contact Form Message',
+    subject: 'New Contact Form Message',
     html: emailHtml,
   };
 

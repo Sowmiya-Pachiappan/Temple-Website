@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
+import UserTemple from '../models/userTempleModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -19,24 +20,18 @@ export const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log({
-      ...restData,
-      email,
-      password: hashedPassword,
-      role: req.body.role ?? 'user',
-    });
+
     const user = await User.create({
       ...restData,
       email,
       password: hashedPassword,
       role: req.body.role ?? 'user',
     });
-    console.log({
-      ...restData,
-      email,
-      password: hashedPassword,
-      role: req.body.role ?? 'user',
+    const userTemple = await UserTemple.create({
+      userId: user.dataValues.id,
+      templeId: user.dataValues.familyDevataMandir,
     });
+
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,

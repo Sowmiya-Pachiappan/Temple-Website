@@ -68,10 +68,10 @@ const Home = () => {
 
   return (
     <Stack className='overflow-hidden'>
-      <div id='home' className='px-10'>
+      <Stack gap={5} id='home' className='p-5 md:p-10 '>
         <Hero />
         <Feature />
-      </div>
+      </Stack>
 
       <About data={data} loading={loading} />
 

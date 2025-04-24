@@ -1,14 +1,23 @@
 import axios from './indexApi';
 
-export const getTemples = () => axios.get('/temples');
+export const getTemples = async () =>
+  await axios.get('/temples');
 export const getVerifiedTemples = () =>
   axios.get('/temples/verified');
+export const getMyTemples = async () => {
+  const token = await localStorage.getItem('token');
+  return axios.get('/temples/my-temples', {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
 
-export const getTempleById = (id) =>
-  axios.get(`/temples/${id}`);
+export const getTempleById = async (id) =>
+  await axios.get(`/temples/${id}`);
 
 export const createTemple = async (templeData) => {
-  return axios.post('/temples', templeData);
+  return await axios.post('/temples', templeData);
 };
 
 export const updateTemple = async (id, updatedData) => {
@@ -40,4 +49,22 @@ export const verifyTemple = async (id) => {
       },
     }
   );
+};
+
+export const getNotConnectedTemples = async () => {
+  const token = await localStorage.getItem('token');
+  return axios.get(`/temples/not-connected`, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
+export const connectTempleWithUser = async (data) => {
+  const token = await localStorage.getItem('token');
+  return await axios.post('/temples/connect', data, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
 };

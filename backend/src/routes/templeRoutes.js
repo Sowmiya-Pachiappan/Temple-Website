@@ -7,6 +7,9 @@ import {
   deleteTemple,
   verifyTemple,
   getVerifiedTemples,
+  getMyTemples,
+  getNotConnectedTemples,
+  connectTemple,
 } from '../controllers/templeController.js';
 import {
   authenticate,
@@ -17,7 +20,16 @@ const templeRouter = express.Router();
 
 templeRouter.route('/').post(createTemple).get(getTemples);
 
+templeRouter
+  .route('/my-temples')
+  .get(authenticate, getMyTemples);
 templeRouter.route('/verified').get(getVerifiedTemples);
+templeRouter
+  .route('/not-connected')
+  .get(authenticate, getNotConnectedTemples);
+templeRouter
+  .route('/connect')
+  .post(authenticate, connectTemple);
 templeRouter
   .route('/:id')
   .get(getTempleById)

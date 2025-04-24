@@ -2,6 +2,8 @@ import asyncHandler from 'express-async-handler';
 import Temple from '../models/templeModel.js';
 import User from '../models/userModel.js';
 import { sendTempleCreateEmail } from '../utils/sendEmail.js';
+import UserTemple from '../models/userTempleModel.js';
+import { Op } from 'sequelize';
 
 export const createTemple = asyncHandler(
   async (req, res) => {
@@ -78,9 +80,7 @@ export const getTemples = asyncHandler(async (req, res) => {
     res.send({ temples });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .send({ message: 'Failed to fetch temples' });
+    res.status(500).send({ message: error.message });
   }
 });
 
@@ -96,9 +96,7 @@ export const getVerifiedTemples = asyncHandler(
       res.send({ temples });
     } catch (error) {
       console.log(error);
-      res
-        .status(500)
-        .send({ message: 'Failed to fetch temples' });
+      res.status(500).send({ message: error.message });
     }
   }
 );
@@ -221,6 +219,96 @@ export const verifyTemple = asyncHandler(
       res
         .status(500)
         .send({ message: 'Failed to verify temple' });
+    }
+  }
+);
+
+export const getMyTemples = asyncHandler(
+  async (req, res) => {
+    try {
+      const userWithTemples = await User.findByPk(
+        req.user.id,
+        {
+          include: [
+            {
+              model: Temple,
+              as: 'connectedTemples',
+              through: {
+                attributes: ['createdAt'], // optional: if you want to get createdAt from the pivot table
+              },
+            },
+          ],
+        }
+      );
+
+      const temples =
+        userWithTemples?.connectedTemples?.sort(
+          (a, b) =>
+            new Date(b.UserTemple.createdAt) -
+            new Date(a.UserTemple.createdAt)
+        );
+
+      res.send({ temples });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  }
+);
+
+export const getNotConnectedTemples = asyncHandler(
+  async (req, res) => {
+    try {
+      const userId = req.user.id;
+
+      // Find all templeIds that the user is already connected to
+      const connectedTempleIds = await UserTemple.findAll({
+        where: { userId },
+        attributes: ['templeId'],
+      });
+
+      const templeIdList = connectedTempleIds.map(
+        (item) => item.templeId
+      );
+
+      // Fetch all temples NOT in that list
+      const temples = await Temple.findAll({
+        where: {
+          id: {
+            [Op.notIn]: templeIdList,
+          },
+        },
+      });
+
+      res.status(200).send({ temples });
+    } catch (error) {
+      console.error(
+        'Error fetching unconnected temples:',
+        error
+      );
+      res.status(500).send({ message: error.message });
+    }
+  }
+);
+export const connectTemple = asyncHandler(
+  async (req, res) => {
+    try {
+      const connectUserWithTemple = await UserTemple.create(
+        {
+          templeId: req.body.templeId,
+          userId: req.body.userId,
+        }
+      );
+
+      res.status(201).send({
+        message: 'User successfully connected to temple.',
+        data: connectUserWithTemple,
+      });
+    } catch (error) {
+      console.error(
+        'Error connecting user to temple:',
+        error
+      );
+      res.status(500).send({ message: error.message });
     }
   }
 );

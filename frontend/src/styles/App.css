@@ -32,7 +32,7 @@ i[class^='fi fi-'] {
   left: 50%;
   bottom: -80px;
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 10000 !important;
 }
 
 @media (max-width: 1500px) {
@@ -55,13 +55,25 @@ i[class^='fi fi-'] {
   .banner__video .popup-video {
     width: 130px;
     height: 130px;
+    z-index: 10000 !important;
   }
 }
 
 @media (max-width: 1199.98px) {
   .banner__video .popup-video {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
+    z-index: 10000 !important;
+  }
+}
+@media (max-width: 767px) {
+  .banner__video .popup-video {
+    width: 70px !important;
+    height: 70px !important;
+    z-index: 10000 !important;
+  }
+  .banner__video .popup-video .fi {
+    font-size: 20px !important;
   }
 }
 

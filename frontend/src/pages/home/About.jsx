@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { convert } from 'html-to-text';
+import Title from '@/components/Title';
 
 const About = ({ data, loading }) => {
   const [showFull, setShowFull] = useState(false);
@@ -17,7 +18,7 @@ const About = ({ data, loading }) => {
   return (
     <motion.div
       id='about'
-      className='px-10 flex flex-col md:flex-row items-center justify-center py-10 gap-6 bg-white'
+      className='p-5 md:p-10 flex flex-col md:flex-row items-center justify-center gap-6 bg-white'
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -43,30 +44,18 @@ const About = ({ data, loading }) => {
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <Stack gap={1} alignItems={'start'}>
-          <Stack
-            direction={'row'}
-            alignItems={'center'}
-            gap={2}
-          >
-            <Stack gap={0.5} alignItems={'flex-end'}>
-              <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
-              <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
-            </Stack>
-            <h6 className='text-brand-500 font-bold '>
-              ABOUT US
-            </h6>
-            <Stack gap={0.5} alignItems={'flex-start'}>
-              <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
-              <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
-            </Stack>
-          </Stack>
+        <Stack
+          gap={1}
+          alignItems={'start'}
+          className='items-center md:items-start'
+        >
+          <Title subTitle={'ABOUT US'} />
           <h3
             className='font-semibold text-2xl'
             dangerouslySetInnerHTML={{ __html: data.title }}
           ></h3>
           <p
-            className='text-base leading-relaxed'
+            className='text-base leading-relaxed text-justify'
             dangerouslySetInnerHTML={{
               __html: showFull
                 ? data.content

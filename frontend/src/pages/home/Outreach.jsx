@@ -3,6 +3,7 @@ import { Button, Stack } from '@mui/material';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import EventModal from './components/EventModal';
+import Title from '@/components/Title';
 
 const Outreach = () => {
   const [showEventModal, setShowEventModal] =
@@ -20,7 +21,7 @@ const Outreach = () => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className='px-10 flex flex-col  items-center justify-center py-10 gap-6 bg-white'
+      className='p-5 md:p-10  flex flex-col items-center justify-center gap-6 bg-white'
     >
       <motion.div
         className='w-full md:w-2/3 text-gray-800 text-center'
@@ -32,29 +33,12 @@ const Outreach = () => {
           open={showEventModal}
           onClose={closeHandler}
         />
-        <Stack gap={1}>
-          <Stack
-            direction={'row'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            gap={2}
-          >
-            <Stack gap={0.5} alignItems={'flex-end'}>
-              <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
-              <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
-            </Stack>
-            <h6 className='text-brand-500 font-bold '>
-              OUTREACH
-            </h6>
-            <Stack gap={0.5} alignItems={'flex-start'}>
-              <div className='h-0.5 w-5 bg-brand-500 rounded-full'></div>
-              <div className='h-0.5 w-10 bg-brand-500 rounded-full'></div>
-            </Stack>
-          </Stack>
+        <Stack gap={1} className='items-center'>
+          <Title subTitle={'OUTREACH'} />
           <h3 className='font-semibold text-2xl'>
             Extending Divine Connections Across Borders
           </h3>
-          <p className='text-base leading-relaxed'>
+          <p className='text-base leading-relaxed text-justify md:text-center'>
             Our outreach initiatives are dedicated to
             spreading spiritual wisdom, cultural heritage,
             and compassionate service beyond temple walls.

@@ -10,16 +10,16 @@ const Hero = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className={`rounded-md relative flex bg-cover h-[calc(100vh-104px)] bg-center bg-[url(@/assets/images/temple-2.jpeg)]`}
+      className={`rounded-md relative flex flex-col lg:flex-row bg-cover bg-center min-h-screen lg:h-[calc(100vh-104px)] bg-[url(@/assets/images/temple-2.jpeg)]`}
     >
       <div className='absolute rounded-md inset-0 bg-gradient-to-r from-black to-black opacity-75'></div>
 
-      {/* Text Content with motion */}
+      {/* Text Content */}
       <motion.div
         initial={{ x: -60, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2 }}
-        className='relative z-10 flex flex-col gap-5 text-white h-full justify-center text-center p-10 w-1/2'
+        className='relative z-10 flex flex-col gap-5 text-white justify-center text-center p-5 lg:p-10 w-full lg:w-1/2'
       >
         <Typography
           variant='h4'
@@ -30,7 +30,7 @@ const Hero = () => {
           Worldwide
         </Typography>
         <Typography
-          variant='body-1'
+          variant='body1'
           className='leading-7 text-md text-gray-200 font-light text-left'
         >
           Explore sacred spaces from every corner of the
@@ -50,6 +50,8 @@ const Hero = () => {
           </Button>
         </div>
       </motion.div>
+
+      {/* Video Button - unchanged */}
       <div className='banner__video'>
         <a
           href='https://www.youtube.com/watch?v=XHOmBV4js_E'
@@ -58,14 +60,14 @@ const Hero = () => {
           <i className='fi fi-sr-play'></i>
         </a>
       </div>
-      {/* Image Section with motion */}
+      {/* Image Section */}
       <motion.div
         initial={{ x: 60, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.3 }}
-        className='w-1/2 z-10'
+        className='w-full lg:w-1/2 z-10'
       >
-        <div className='grid grid-rows-6 grid-cols-6 gap-10 p-10 h-full w-full'>
+        <div className='grid grid-rows-6 grid-cols-6 gap-6 p-6 lg:p-10 h-full w-full'>
           <motion.img
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}

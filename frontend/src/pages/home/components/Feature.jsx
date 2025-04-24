@@ -6,58 +6,65 @@ import FeatureImage3 from '@/assets/images/feature-3.png';
 const Feature = () => {
   return (
     <div
-      className='flex justify-center w-full py-10 z-10'
+      className='flex justify-center w-full z-10'
       id='feature'
     >
-      <div className='text-white  w-5/6 rounded-md bg-linear-to-r from-brand-400 to-brand-500 p-10 shadow-xl'>
+      <div className='text-white w-full md:w-5/6 rounded-md bg-gradient-to-r from-brand-400 to-brand-500 p-5 md:p-10 shadow-xl'>
         <Stack
-          direction='row'
-          justifyContent={'space-between'}
+          direction={{ xs: 'column', md: 'row' }}
+          spacing={4}
+          justifyContent='space-between'
+          alignItems='center'
         >
-          <Stack
-            gap={2}
-            justifyItems={'center'}
-            alignItems={'center'}
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            gap={1.5}
           >
             <img
               src={FeatureImage1}
               width={60}
               height={60}
+              alt='Discover Temples'
             />
-            <Typography>
+            <Typography align='center'>
               Discover Temples Near You
             </Typography>
-          </Stack>
-          <Box>
-            <Stack
-              gap={2}
-              justifyItems={'center'}
-              alignItems={'center'}
-            >
-              <img
-                src={FeatureImage2}
-                width={60}
-                height={60}
-              />
-              <Typography>
-                Share Your Temple's Story
-              </Typography>
-            </Stack>
           </Box>
-          <Box>
-            {' '}
-            <Stack
-              gap={2}
-              justifyItems={'center'}
-              alignItems={'center'}
-            >
-              <img
-                src={FeatureImage3}
-                width={60}
-                height={60}
-              />
-              <Typography>Connect with Devotees</Typography>
-            </Stack>
+
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            gap={1.5}
+          >
+            <img
+              src={FeatureImage2}
+              width={60}
+              height={60}
+              alt="Share Your Temple's Story"
+            />
+            <Typography align='center'>
+              Share Your Temple's Story
+            </Typography>
+          </Box>
+
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            gap={1.5}
+          >
+            <img
+              src={FeatureImage3}
+              width={60}
+              height={60}
+              alt='Connect with Devotees'
+            />
+            <Typography align='center'>
+              Connect with Devotees
+            </Typography>
           </Box>
         </Stack>
       </div>

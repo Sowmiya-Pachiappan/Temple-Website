@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   Box,
   TextField,
-  Button,
   Typography,
   Stack,
   MenuItem,
@@ -13,6 +12,7 @@ import {
   Snackbar,
   Alert,
   Divider,
+  Button,
 } from '@mui/material';
 import { MuiPhone } from '@/components/PhoneInput';
 import Image from '@/assets/images/registerImage.jpg';
@@ -40,7 +40,6 @@ const Register = () => {
   const [error, setError] = useState('');
   const [showErrorAlert, setShowErrorAlert] =
     useState(false);
-
   const [showSuccessAlert, setShowSuccessAlert] =
     useState(false);
   const [devataMandirs, setDevataMandirs] = useState([]);
@@ -48,6 +47,8 @@ const Register = () => {
     []
   );
   const [showAddTemple, setShowAddTemple] = useState(false);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     if (e?.target) {
       const { name, value } = e.target;
@@ -57,7 +58,6 @@ const Register = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +67,6 @@ const Register = () => {
         ...formData,
         role: 'user',
       });
-
       setShowSuccessAlert(true);
       const { user, token } = res.data;
       localStorage.setItem('user', JSON.stringify(user));
@@ -108,24 +107,24 @@ const Register = () => {
     setShowErrorAlert(false);
     setShowSuccessAlert(false);
   };
+
   const addFamilyDevataMandir = () => {
     setShowAddTemple(true);
   };
+
   const closeAddTempleHandler = () => {
     setShowAddTemple(false);
     navigate('/');
   };
+
   return (
-    <Grid
-      container
-      className='md:h-screen'
-      alignItems='stretch'
-    >
+    <Grid container className='h-screen'>
       <AddTemple
         onClose={closeAddTempleHandler}
         open={showAddTemple}
         setOpen={setShowAddTemple}
       />
+
       <Snackbar
         open={showErrorAlert}
         autoHideDuration={3000}
@@ -135,11 +134,7 @@ const Register = () => {
         }}
         onClose={closeHandler}
       >
-        <Alert
-          severity='error'
-          onClose={closeHandler}
-          className='mb-10'
-        >
+        <Alert severity='error' onClose={closeHandler}>
           {error}
         </Alert>
       </Snackbar>
@@ -153,16 +148,16 @@ const Register = () => {
         }}
         onClose={closeHandler}
       >
-        <Alert
-          severity='success'
-          onClose={closeHandler}
-          className='mb-10'
-        >
+        <Alert severity='success' onClose={closeHandler}>
           Account is registered successfully
         </Alert>
       </Snackbar>
 
-      <Grid size={4}>
+      {/* Image Section */}
+      <Grid
+        size={{ xs: 0, md: 6 }}
+        className='hidden md:block'
+      >
         <img
           src={Image}
           alt='Register Visual'
@@ -170,24 +165,30 @@ const Register = () => {
         />
       </Grid>
 
-      <Grid size={8} className='p-10'>
-        <Box component='form' onSubmit={handleSubmit}>
+      {/* Form Section */}
+      <Grid
+        container
+        size={{ xs: 12, md: 6 }}
+        spacing={2}
+        className='p-6 md:p-10 flex items-center justify-center'
+      >
+        <Box
+          component='form'
+          onSubmit={handleSubmit}
+          className='w-full max-w-2xl'
+        >
           <Typography
             variant='h5'
-            gutterBottom
             className='font-semibold mb-5'
           >
             Join the Divine Circle
           </Typography>
-          <Grid container spacing={2}>
+
+          <Grid spacing={2} container>
             {/* Title and Name */}
-            <Grid size={6}>
-              <Stack direction={'row'}>
-                <FormControl
-                  fullWidth
-                  size='small'
-                  className='flex-1/2'
-                >
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Stack direction='row' spacing={1}>
+                <FormControl fullWidth size='small'>
                   <InputLabel>Title</InputLabel>
                   <Select
                     name='title'
@@ -213,7 +214,7 @@ const Register = () => {
               </Stack>
             </Grid>
 
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 label="Father's Name"
                 name='fatherName'
@@ -224,7 +225,7 @@ const Register = () => {
               />
             </Grid>
 
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 label="Mother's Name"
                 name='motherName'
@@ -235,10 +236,9 @@ const Register = () => {
               />
             </Grid>
 
-            {/* Phone */}
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <MuiPhone
-                value={`+${formData.mobileCode}${formData.mobileNumber}`}
+                value={`${formData.mobileCode}${formData.mobileNumber}`}
                 onChange={({
                   mobileCode,
                   mobileNumber,
@@ -253,8 +253,7 @@ const Register = () => {
               />
             </Grid>
 
-            {/* Email */}
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 label='Email'
                 name='email'
@@ -267,8 +266,7 @@ const Register = () => {
               />
             </Grid>
 
-            {/* Password */}
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 label='Password'
                 name='password'
@@ -281,8 +279,7 @@ const Register = () => {
               />
             </Grid>
 
-            {/* Family Devata Mandir */}
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <FormControl fullWidth size='small'>
                 <InputLabel>
                   Family Devata Mandir
@@ -302,7 +299,6 @@ const Register = () => {
                     </MenuItem>
                   ))}
                   <Divider />
-
                   <MenuItem key='addTemple'>
                     <Button
                       variant='text'
@@ -316,8 +312,7 @@ const Register = () => {
               </FormControl>
             </Grid>
 
-            {/* Member Reference */}
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <FormControl fullWidth size='small'>
                 <InputLabel>Member Reference</InputLabel>
                 <Select
@@ -338,14 +333,17 @@ const Register = () => {
               </FormControl>
             </Grid>
 
-            <Grid size={12} className='flex justify-end'>
+            <Grid
+              size={{ xs: 12, md: 6 }}
+              className='flex justify-end'
+            >
               <Button
                 loading={loading}
                 type='submit'
                 size='medium'
                 variant='contained'
                 disabled={loading}
-                className='text-white inline bg-brand-500'
+                className='text-white bg-brand-500'
               >
                 Register Now
               </Button>

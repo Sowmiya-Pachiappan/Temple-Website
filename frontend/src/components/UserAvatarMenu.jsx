@@ -5,26 +5,24 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
-  Divider,
 } from '@mui/material';
-import {
-  Logout,
-  Settings,
-  Person,
-} from '@mui/icons-material';
+import { Logout } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
 
 const UserAvatarMenu = ({ user, onLogout }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event) =>
     setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-  const handleLogout = () => {
-    handleClose();
-    onLogout();
-  };
+  const closeHandler = () => setAnchorEl(null);
 
+  const logoutHandler = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+  };
   return (
     <div className='relative'>
       <IconButton
@@ -47,8 +45,8 @@ const UserAvatarMenu = ({ user, onLogout }) => {
         anchorEl={anchorEl}
         id='account-menu'
         open={open}
-        onClose={handleClose}
-        onClick={handleClose}
+        onClose={closeHandler}
+        onClick={closeHandler}
         anchorOrigin={{
           horizontal: 'right',
           vertical: 'bottom',
@@ -62,21 +60,8 @@ const UserAvatarMenu = ({ user, onLogout }) => {
             'mt-3 rounded-lg shadow-lg border border-gray-100 min-w-[180px]',
         }}
       >
-        <MenuItem className='hover:bg-gray-100'>
-          <ListItemIcon>
-            <Person fontSize='small' />
-          </ListItemIcon>
-          Profile
-        </MenuItem>
-        <MenuItem className='hover:bg-gray-100'>
-          <ListItemIcon>
-            <Settings fontSize='small' />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <Divider />
         <MenuItem
-          onClick={handleLogout}
+          onClick={logoutHandler}
           className='hover:bg-gray-100'
         >
           <ListItemIcon>

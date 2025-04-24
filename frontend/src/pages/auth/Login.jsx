@@ -20,6 +20,7 @@ import Logo from '@/assets/images/logo.png';
 import Image from '@/assets/images/LoginImage.jpg';
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -39,6 +40,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log(formData);
     try {
       const res = await login(formData);
@@ -51,6 +53,8 @@ const Login = () => {
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
     }
   };
   const closeHandler = () => {
@@ -66,10 +70,9 @@ const Login = () => {
       container
       alignItems={'stretch'}
       justifyContent={'center'}
-      className='h-full'
-      style={{ minHeight: '100vh' }}
+      className={'h-screen'}
     >
-      <Grid size={6}>
+      <Grid size={{ xs: 0, md: 6 }}>
         <img
           src={Image}
           alt=''
@@ -77,13 +80,13 @@ const Login = () => {
         />
       </Grid>
       <Grid
-        size={6}
+        size={{ xs: 12, md: 6 }}
         className='p-10 flex items-center justify-center'
       >
         <Box
           component='form'
           onSubmit={handleSubmit}
-          className='flex flex-col gap-2 w-3/4'
+          className='flex flex-col gap-2 w-full md:w-3/4'
         >
           <NavLink
             to='/'
@@ -163,10 +166,10 @@ const Login = () => {
 
           <Button
             type='submit'
-            variant='contained'
             fullWidth
             size='small'
-            className='text-white font-semibold'
+            loading={loading}
+            className='text-white text-md bg-brand-500 hover:bg-brand-600'
           >
             Login
           </Button>
